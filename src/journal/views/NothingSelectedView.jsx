@@ -2,7 +2,9 @@ import { StarOutline } from '@mui/icons-material';
 import { Grid, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import 'primeicons/primeicons.css';
 
 export const NothingSelectedView = () => {
 
@@ -38,20 +40,25 @@ export const NothingSelectedView = () => {
   }
 
   return (
-    <>
-    <form onSubmit={handleSearch}>
-      <input type='text' value={cancion} onChange={e => setCancion(e.target.value)}/>
-      <button type='submit'>Buscar</button>
-    </form>
-    {canciones.map((cancion, index) =>(
-      <>
-        <div key={index}>
-          <img src={cancion.data.albumOfTrack.coverArt.sources[0].url} alt=''/>
-          <h2>{cancion.data.name}</h2>
-          <a href={cancion.data.url}><button>Play song</button></a>
-        </div>
-      </>
-    ))}
-    </>
-  )
+    <div>
+      <form onSubmit={handleSearch}>
+        <InputText type="text" className="p-inputtext-lg" placeholder="Titulo cancion" value={cancion} onChange={e => setCancion(e.target.value)} style={{ fontSize: '15px', padding: '10px', margin: '10px', width: '20%' }}/>
+        <Button label="Buscar" icon="pi pi-search" type='submit' style={{ backgroundColor: '#262254', color: '#ffffff', height: '40px', borderRadius: '3px', width: '10%',}}/>
+      </form>
+      
+      {canciones.map((cancion, index) =>(
+        <>
+          <div key={index}>
+            <img src={cancion.data.albumOfTrack.coverArt.sources[0].url} alt=''/>
+            <h2>{cancion.data.name}</h2>
+            <p>Nombre del album: {cancion.data.albumOfTrack.name}</p>
+            <p>Artista: {cancion.data.artists.items[0].profile.name}</p>
+            <a href={cancion.data.uri}><button>Play song</button></a>
+          </div>
+        </>
+
+        
+      ))}
+    </div>
+  )
 }
