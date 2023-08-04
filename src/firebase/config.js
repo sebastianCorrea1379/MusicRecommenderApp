@@ -7,12 +7,12 @@ import { getFirestore } from 'firebase/firestore/lite';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDcUo1A0vPwYI6-ba8ShmwNxgFZyEJx_OY",
-  authDomain: "journal-app-12523.firebaseapp.com",
-  projectId: "journal-app-12523",
-  storageBucket: "journal-app-12523.appspot.com",
-  messagingSenderId: "484535662383",
-  appId: "1:484535662383:web:75f60160b0a6fe315493da"
+  apiKey: "AIzaSyCzZUBw1B36CVmApjiZ3bW96RnBxjqpkU0",
+  authDomain: "musicrecommenderapp.firebaseapp.com",
+  projectId: "musicrecommenderapp",
+  storageBucket: "musicrecommenderapp.appspot.com",
+  messagingSenderId: "310742200803",
+  appId: "1:310742200803:web:fdf5a0afa79babbb1430d6"
 };
 
 // Initialize Firebase
