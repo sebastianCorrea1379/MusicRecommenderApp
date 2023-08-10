@@ -1,14 +1,21 @@
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { JournalLayout } from '../layout/JournalLayout';
 import { NothingSelectedView } from '../views';
 import { AddOutlined } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 
 export const JournalPage = () => {
+
+  const { genders } = useSelector( state => state.journal );
+
   return (
     <JournalLayout>
 
-      {/* <Typography>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia sed nobis adipisci unde suscipit blanditiis, accusantium assumenda modi dolores? Similique in hic id, recusandae provident consequuntur odio vero? Facere, impedit.</Typography> */}
+      <Typography>
+        Tus géneros favoritos : 
+        { JSON.stringify( genders.list, null, 2 ) };
+      </Typography>
 
       <NothingSelectedView />
 
