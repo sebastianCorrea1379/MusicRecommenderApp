@@ -1,5 +1,3 @@
-import { StarOutline } from '@mui/icons-material';
-import { Grid, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { InputText } from 'primereact/inputtext';
@@ -10,9 +8,11 @@ import { Card } from 'primereact/card';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 
+//*Buscar canciones
 export const NothingSelectedView = () => {
 
   const { displayName } = useSelector(state => state.auth);
+  const { genders } = useSelector( state => state.journal );
   //*Para buscar una cancion por el titulo
   const [cancion, setCancion] = useState('');
   const [canciones, setCanciones] = useState([])
@@ -37,7 +37,7 @@ export const NothingSelectedView = () => {
       let url = `https://spotify23.p.rapidapi.com/search/?q=${cancion}&type=multi&offset=0&limit=20&numberOfTopResults=5`;
       let data = await fetch(url, options)
       let res = await data.json()
-      //console.log(res.tracks.items)
+      console.log(res.tracks.items)
       setCanciones(res.tracks.items)
     }catch (error){
       console.log(`ups.. error: ${error}`)
@@ -58,9 +58,10 @@ export const NothingSelectedView = () => {
 
   async function getSongP(cancionP){
     try{
-      let url = `http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=${cancionP}&api_key=02540433dfac9a53bb241680dd3a8842&limit=20&format=json`
+      let url = `http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=${genders.list[1]}&api_key=02540433dfac9a53bb241680dd3a8842&limit=20&format=json`
       let data = await fetch(url)
       let res = await data.json()
+      console.log(res)
       console.log(res.tracks.track)
       setCancionesP(res.tracks.track)
     }catch(error){
@@ -88,8 +89,8 @@ export const NothingSelectedView = () => {
     <div style={containerStyle}>
       <div>
       <form onSubmit={handleSearch} style={formStyle}>
-        <InputText type="text" className="p-inputtext-lg" placeholder="Titulo cancion" value={cancion} onChange={e => setCancion(e.target.value)} style={{ fontSize: '15px', margin: '10px', width: '70%' }}/>
-        <Button label="Buscar" icon="pi pi-search" type='submit' style={{ backgroundColor: '#262254', color: '#ffffff', height: '40px', borderRadius: '3px', width: '35%', }}/>
+        <InputText type="text" className="p-inputtext-lg" placeholder="Titulo cancion" value={cancion} onChange={e => setCancion(e.target.value)} style={{ fontSize: '20px', margin: '10px', width: '100%' }}/>
+        <Button label="Buscar" icon="pi pi-search" type='submit' style={{ backgroundColor: '#262254', color: '#ffffff', height: '50px', borderRadius: '3px', width: '35%', }}/>
       </form>
         {canciones.map((cancion, index) =>(
             <Card key={index} style={{marginBottom: '50px',  marginLeft: '40px'}}>
@@ -106,8 +107,8 @@ export const NothingSelectedView = () => {
       </div>
       <div>
         <form onSubmit={handleSearchP} style={formStyle}>
-          <InputText type="text" className="p-inputtext-lg" placeholder="Palabra" value={cancionP} onChange={e => setCancionP(e.target.value)} style={{ fontSize: '15px', padding: '10px', margin: '10px', width: '70%' }}/>
-          <Button label="Buscar" icon="pi pi-search" type='submit' style={{ backgroundColor: '#262254', color: '#ffffff', height: '40px', borderRadius: '3px', width: '35%',}}/>
+          <InputText type="text" className="p-inputtext-lg" placeholder="Palabra" value={cancionP} onChange={e => setCancionP(e.target.value)} style={{ fontSize: '20px', padding: '10px', margin: '10px', width: '70%' }}/>
+          <Button label="Buscar" icon="pi pi-search" type='submit' style={{ backgroundColor: '#262254', color: '#ffffff', height: '50px', borderRadius: '3px', width: '35%',}}/>
         </form>
         {cancionesP.map((cancion, index) =>(
             <Card key={index} style={{marginBottom: '50px',}}>
