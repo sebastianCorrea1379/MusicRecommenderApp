@@ -10,7 +10,7 @@ export const JournalPageHome = () => {
 
   return (
     <JournalLayout>
-        <h1 style={{ textAlign: 'center', color: '#262254' }}>Canciones de tus generos favoritos</h1>
+        <h1 style={{ textAlign: 'center', color: '#262254' }}>Recomendaciones de canciones de tus géneros favoritos</h1>
       <HomeViews />
 
     </JournalLayout>
