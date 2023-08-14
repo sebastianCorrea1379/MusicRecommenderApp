@@ -11,7 +11,6 @@ export const JournalRoutes = () => {
         <Route path="/buscar" element={<JournalSearchPage />} />
         <Route path="/recomendacion" element={<JournalRecommenderPage />} />
         <Route path="/*" element={<Navigate to="/" />} />
-
     </Routes>
   )
 }
