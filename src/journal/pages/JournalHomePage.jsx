@@ -4,15 +4,19 @@ import { NothingSelectedView } from '../views';
 import { useSelector } from 'react-redux';
 import { HomeViews } from '../views/HomeView';
 import { Avatar } from 'primereact/avatar';
+import { Grid } from "@mui/material";
 
 export const JournalPageHome = () => {
 
 
   return (
     <JournalLayout>
+      <Grid className='animate__animated animate__fadeIn animate__faster'>
+          
         <h1 style={{ textAlign: 'center', color: '#262254' }}>Recomendaciones de canciones de tus géneros favoritos</h1>
-      <HomeViews />
-
+        <HomeViews />
+              
+      </Grid>
     </JournalLayout>
     
   )

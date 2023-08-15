@@ -1,34 +1,42 @@
-import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
-import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+import { LogoutOutlined, LibraryMusicOutlined } from '@mui/icons-material';
+import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { startLogout } from '../../store/auth';
-import 'primeicons/primeicons.css';
-import { Menubar } from 'primereact/menubar';
+import { useNavigate } from 'react-router-dom';
 
 export const NavBar = ({ drawerWidth = 0 }) => {
+
+    const { displayName } = useSelector( state => state.auth )
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const onHome = () => {
+        navigate('/home', {
+            replace: true
+        });
+    }
+
+    const onBuscador = () => {
+        navigate('/buscar', {
+            replace: true
+        });
+    }
+
+    const onFavoritas = () => {
+        navigate('/favorites', { 
+            replace: true
+        });
+    }
+
+    const onRecomendador = () => {
+        navigate('/recomendacion', {
+            replace: true
+        });
+    }
 
     const onLogout = () => {
         dispatch(startLogout());
     };
-
-    const items = [
-        {
-            label: 'Home',
-            icon: 'pi pi-home',
-            direction: '/home'
-        },
-        {
-            label: 'Buscar cancion',
-            icon: 'pi pi-bolt',
-            direction: '/buscar'
-        },
-        {
-            label: 'Recomendaciones',
-            icon: 'pi pi-volume-up',
-            direction: '/recomendacion'
-        },
-    ];
 
     return (
         <AppBar
@@ -40,15 +48,17 @@ export const NavBar = ({ drawerWidth = 0 }) => {
         >
             <Toolbar>
                 <Grid container direction='row' justifyContent='space-between' alignItems='center'>
-                    <Menubar
-                        model={
-                            items.map(item => ({
-                                icon: item.icon,
-                                label: item.label,
-                            onClick: () => console.log('hola')
-                        }))}
-                        style={{ backgroundColor: '#262254', border: 'none' }}
-                    />
+
+                    <IconButton style={{color: 'white'}} onClick={onHome}>
+                        <LibraryMusicOutlined />
+                        <Typography>{displayName}</Typography>
+                    </IconButton>
+
+                    <Button color="inherit" onClick={onHome}>Home</Button>
+                    <Button color="inherit" onClick={onBuscador}>Buscador</Button>
+                    <Button color="inherit" onClick={onFavoritas}>Favoritas</Button>
+                    <Button color="inherit" onClick={onRecomendador}>Recomentador</Button>
+                    
                     <IconButton color='error' onClick={onLogout}>
                         <LogoutOutlined />
                     </IconButton>
@@ -56,13 +66,4 @@ export const NavBar = ({ drawerWidth = 0 }) => {
             </Toolbar>
         </AppBar>
     );
-};
-
-// ...
-
-// Define la función navigateTo para redirigir usando React Router
-const navigateTo = (direction) => {
-    // Redirige al usuario a la dirección proporcionada usando React Router
-    // Asegúrate de tener configurado React Router en tu aplicación
-    history.push(direction); // Ajusta esto según tu configuración de enrutamiento
 };
