@@ -3,6 +3,8 @@ import { setGenders } from "./journalSlice";
 import { FirebaseDB } from "../../firebase/config";
 import { collection, setDoc, doc, getDocs } from 'firebase/firestore/lite';
 import { setSongs } from '../../store/journal/journalSlice';
+import swal from 'sweetalert'
+import 'primeicons/primeicons.css';
 
 export const startLoadingUserInfo = () => {
     return async( dispatch, getState ) => {
@@ -34,10 +36,17 @@ export const addNewSongFavorite = (uid, nombre, artiste, url) =>{
           doc.data().nombre === nombre && doc.data().artist === artiste
         );
         if(existingSong){
-            console.log('ya esta')
+            swal(
+                {
+                    title: "Revisa tu lista de favoritos",
+                    text: `Ya tienes la canción ${nombre} en tu lista de favoritos`,
+                    buttons: "Aceptar",
+                    timer: "3000"
+                }
+            )
             return;
         }
-        
+
         const newDoc = doc(collection(FirebaseDB, `${userId}/songs/favorites`));
         await setDoc(newDoc, favoriteData);
         favoriteData.id = newDoc.id;

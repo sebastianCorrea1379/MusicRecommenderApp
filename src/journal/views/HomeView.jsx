@@ -91,7 +91,7 @@ export const HomeViews = () => {
                         <Card key={index} style={{marginBottom: '50px', border: '2px solid #262254'}}>
                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }} >
                                 <Button icon="pi pi-heart" rounded text raised severity="danger" aria-label="Favorite" onClick={ () => { console.log("Clicked:", cancion.artist.name, cancion.name, cancion.url);
-                                     dispatch(addNewSongFavorite(uid, cancion.artist.name, cancion.name, cancion.url));}}/>
+                                     dispatch(addNewSongFavorite(uid, cancion.name, cancion.artist.name, cancion.url));}}/>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
@@ -109,7 +109,7 @@ export const HomeViews = () => {
                         <Card key={index} style={{marginBottom: '50px', marginLeft: '20px', marginRight: '20px', border: '2px solid #262254'}}>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }} >
                                 <Button icon="pi pi-heart" rounded text raised severity="danger" aria-label="Favorite" onClick={ () => { console.log("Clicked:", cancion.artist.name, cancion.name, cancion.url);
-                                     dispatch(addNewSongFavorite(uid, cancion.artist.name, cancion.name, cancion.url));}}/>
+                                     dispatch(addNewSongFavorite(uid, cancion.name, cancion.artist.name, cancion.url));}}/>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
@@ -127,7 +127,7 @@ export const HomeViews = () => {
                         <Card key={index} style={{marginBottom: '50px',border: '2px solid #262254' }}>
                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }} >
                                 <Button icon="pi pi-heart" rounded text raised severity="danger" aria-label="Favorite" onClick={ () => { console.log("Clicked:", cancion.artist.name, cancion.name, cancion.url);
-                                     dispatch(addNewSongFavorite(uid, cancion.artist.name, cancion.name, cancion.url));}}/>
+                                     dispatch(addNewSongFavorite(uid, cancion.name, cancion.artist.name, cancion.url));}}/>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
