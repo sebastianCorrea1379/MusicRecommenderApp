@@ -1,7 +1,7 @@
 import { loadGenders } from "../../helpers/loadGenders";
 import { setGenders } from "./journalSlice";
 import { FirebaseDB } from "../../firebase/config";
-import { collection, setDoc, doc } from 'firebase/firestore/lite';
+import { collection, setDoc, doc, getDocs } from 'firebase/firestore/lite';
 import { setSongs } from '../../store/journal/journalSlice';
 
 export const startLoadingUserInfo = () => {
@@ -28,10 +28,20 @@ export const addNewSongFavorite = (uid, nombre, artiste, url) =>{
             nombre: nombre,
             url: url,
         };
-    const newDoc = doc(collection(FirebaseDB, `${userId}/songs/favorites`));
-    await setDoc(newDoc, favoriteData);
-    favoriteData.id = newDoc.id;
-    dispatch(setSongs(favoriteData));
+        const userSongsRef = collection(FirebaseDB, `${userId}/songs/favorites`);
+        const querySnapshot = await getDocs(userSongsRef);
+        const existingSong = querySnapshot.docs.find(doc =>
+          doc.data().nombre === nombre && doc.data().artist === artiste
+        );
+        if(existingSong){
+            console.log('ya esta')
+            return;
+        }
+        
+        const newDoc = doc(collection(FirebaseDB, `${userId}/songs/favorites`));
+        await setDoc(newDoc, favoriteData);
+        favoriteData.id = newDoc.id;
+        dispatch(setSongs(favoriteData));
     
     }
 
