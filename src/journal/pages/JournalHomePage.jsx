@@ -2,9 +2,9 @@ import { IconButton, Typography } from '@mui/material';
 import { JournalLayout } from '../layout/JournalLayout';
 import { NothingSelectedView } from '../views';
 import { useSelector } from 'react-redux';
-import { HomeViews } from '../views/HomeView';
 import { Avatar } from 'primereact/avatar';
 import { Grid } from "@mui/material";
+import { HomeViews } from '../views/HomeView';
 
 export const JournalPageHome = () => {
 

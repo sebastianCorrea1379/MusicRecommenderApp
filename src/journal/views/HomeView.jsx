@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import 'primeicons/primeicons.css';
-import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addNewSongFavorite } from '../../store/journal/thunks';
+
+
+
 
 export const HomeViews = () => {
+    const dispatch = useDispatch(); 
     const { genders } = useSelector( state => state.journal );
     const [generoUno, setGeneroUno] = useState([]);
     const [generoDos, setGeneroDos] = useState([]);
     const [generoTres, setGeneroTres] = useState([]);
+    const { uid } = useSelector( state => state.auth )
     
     async function getSongGenderOne(){
         try{
@@ -72,7 +77,9 @@ export const HomeViews = () => {
         flexDirection: 'row',
         justifyContent: 'space-around',
        
-      };
+    };
+    
+   
     
     return(
         
@@ -82,6 +89,10 @@ export const HomeViews = () => {
                 {
                     generoUno.map((cancion, index) =>(
                         <Card key={index} style={{marginBottom: '50px', border: '2px solid #262254'}}>
+                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }} >
+                                <Button icon="pi pi-heart" rounded text raised severity="danger" aria-label="Favorite" onClick={ () => { console.log("Clicked:", cancion.artist.name, cancion.name, cancion.url);
+                                     dispatch(addNewSongFavorite(uid, cancion.artist.name, cancion.name, cancion.url));}}/>
+                            </div>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
                                 <p>Artista: {cancion.artist.name}</p>
@@ -96,6 +107,10 @@ export const HomeViews = () => {
                 {
                     generoDos.map((cancion, index) =>(
                         <Card key={index} style={{marginBottom: '50px', marginLeft: '20px', marginRight: '20px', border: '2px solid #262254'}}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }} >
+                                <Button icon="pi pi-heart" rounded text raised severity="danger" aria-label="Favorite" onClick={ () => { console.log("Clicked:", cancion.artist.name, cancion.name, cancion.url);
+                                     dispatch(addNewSongFavorite(uid, cancion.artist.name, cancion.name, cancion.url));}}/>
+                            </div>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
                                 <p>Artista: {cancion.artist.name}</p>
@@ -110,6 +125,10 @@ export const HomeViews = () => {
                 {
                     generoTres.map((cancion, index) =>(
                         <Card key={index} style={{marginBottom: '50px',border: '2px solid #262254' }}>
+                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }} >
+                                <Button icon="pi pi-heart" rounded text raised severity="danger" aria-label="Favorite" onClick={ () => { console.log("Clicked:", cancion.artist.name, cancion.name, cancion.url);
+                                     dispatch(addNewSongFavorite(uid, cancion.artist.name, cancion.name, cancion.url));}}/>
+                            </div>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
                                 <p>Artista: {cancion.artist.name}</p>
