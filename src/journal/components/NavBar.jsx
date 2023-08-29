@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const NavBar = ({ drawerWidth = 0 }) => {
 
     const { displayName } = useSelector( state => state.auth )
+    const { isLoading } = useSelector( state => state.journal )
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,8 +29,14 @@ export const NavBar = ({ drawerWidth = 0 }) => {
         });
     }
 
-    const onRecomendador = () => {
-        navigate('/recomendacion', {
+    const onGenerador = () => {
+        navigate('/generador', {
+            replace: true
+        });
+    }
+
+    const onLetras = () => {
+        navigate('/letras', {
             replace: true
         });
     }
@@ -49,17 +56,18 @@ export const NavBar = ({ drawerWidth = 0 }) => {
             <Toolbar>
                 <Grid container direction='row' justifyContent='space-between' alignItems='center'>
 
-                    <IconButton style={{color: 'white'}} onClick={onHome}>
+                    <IconButton style={{color: 'white'}} onClick={onHome} disabled={isLoading}>
                         <LibraryMusicOutlined />
                         <Typography>{displayName}</Typography>
                     </IconButton>
 
-                    <Button color="inherit" onClick={onHome}>Home</Button>
-                    <Button color="inherit" onClick={onBuscador}>Buscador</Button>
-                    <Button color="inherit" onClick={onFavoritas}>Favoritas</Button>
-                    <Button color="inherit" onClick={onRecomendador}>Recomentador</Button>
+                    <Button color="inherit" onClick={onHome} disabled={isLoading}>Home</Button>
+                    <Button color="inherit" onClick={onBuscador} disabled={isLoading}>Buscador</Button>
+                    <Button color="inherit" onClick={onFavoritas} disabled={isLoading}>Favoritas</Button>
+                    <Button color="inherit" onClick={onGenerador} disabled={isLoading}>Generador</Button>
+                    <Button color="inherit" onClick={onLetras} disabled={isLoading}>Letras</Button>
                     
-                    <IconButton color='error' onClick={onLogout}>
+                    <IconButton color='error' onClick={onLogout} disabled={isLoading}>
                         <LogoutOutlined />
                     </IconButton>
                 </Grid>

@@ -1,10 +1,12 @@
 import { loadGenders } from "../../helpers/loadGenders";
-import { setGenders } from "./journalSlice";
+import { isLoading, setActualLetter, setAllLetters, setGenders, setLetter } from "./journalSlice";
 import { FirebaseDB } from "../../firebase/config";
 import { collection, setDoc, doc, getDocs } from 'firebase/firestore/lite';
 import { setSongs } from '../../store/journal/journalSlice';
 import swal from 'sweetalert'
 import 'primeicons/primeicons.css';
+import axios from 'axios';
+import { loadLetters } from "../../helpers/loadLetters";
 
 export const startLoadingUserInfo = () => {
     return async( dispatch, getState ) => {
@@ -14,8 +16,10 @@ export const startLoadingUserInfo = () => {
         if( !uid ) throw new Error('El uid del usuario no existe');
 
         const genders = await loadGenders( uid );
+        const letters = await loadLetters( uid );
 
         dispatch( setGenders( genders ) );
+        dispatch( setAllLetters( letters ) );
 
     }
 }
@@ -55,3 +59,25 @@ export const addNewSongFavorite = (uid, nombre, artiste, url) =>{
     }
 
 }
+
+export const startGenerateNewLetter = (seedText = "Hola mundo") => {
+    return async (dispatch, getState) => {
+
+        dispatch(isLoading());
+        const { uid } = getState().auth;
+
+        try {
+            const response = await axios.post('http://localhost:5000/generate_text', { seed_text: seedText });
+            const newLetter = {letter: response.data.generated_text};
+            const newDoc = doc( collection( FirebaseDB, `${ uid }/generator/letters` ) );
+            newLetter.id = newDoc.id;
+            await setDoc( newDoc, newLetter );
+            dispatch(setLetter(newLetter));
+            dispatch(setActualLetter(newLetter));
+
+        } catch (error) {
+            console.error('Error generating text:', error);
+        }
+    }
+}
+
