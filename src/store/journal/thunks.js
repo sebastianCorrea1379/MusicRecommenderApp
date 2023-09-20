@@ -1,5 +1,5 @@
 import { loadGenders } from "../../helpers/loadGenders";
-import { isLoading, setActualLetter, setAllLetters, setGenders, setLetter } from "./journalSlice";
+import { isLoading, isNotLoading, setActualLetter, setAllLetters, setGenders, setLetter, setOriginalLetter } from "./journalSlice";
 import { FirebaseDB } from "../../firebase/config";
 import { collection, setDoc, doc, getDocs } from 'firebase/firestore/lite';
 import { setSongs } from '../../store/journal/journalSlice';
@@ -68,15 +68,18 @@ export const startGenerateNewLetter = (seedText = "Hola mundo") => {
 
         try {
             const response = await axios.post('http://localhost:5000/generate_text', { seed_text: seedText });
-            const newLetter = {letter: response.data.generated_text};
+            const newLetter = {letter: response.data.corrected_text};
+            const originalLetter = {letter: response.data.generated_text};
             const newDoc = doc( collection( FirebaseDB, `${ uid }/generator/letters` ) );
             newLetter.id = newDoc.id;
             await setDoc( newDoc, newLetter );
             dispatch(setLetter(newLetter));
+            dispatch(setOriginalLetter(originalLetter));
             dispatch(setActualLetter(newLetter));
 
         } catch (error) {
             console.error('Error generating text:', error);
+            dispatch(isNotLoading());
         }
     }
 }

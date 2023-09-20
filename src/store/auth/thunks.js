@@ -1,6 +1,6 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, singInWithGoogle } from "../../firebase/providers";
-import { isSaving, setActualLetter, setAllLetters, setGenders, setUid } from "../journal/journalSlice";
+import { isSaving, setActualLetter, setAllLetters, setGenders, setOriginalLetter, setUid } from "../journal/journalSlice";
 import { checkingCredentials, login, logout } from "./"
 import { FirebaseDB } from "../../firebase/config";
 
@@ -75,6 +75,7 @@ export const startLogout = () => {
 
         dispatch( setAllLetters([]) );
         dispatch( setActualLetter({}) );
+        dispatch( setOriginalLetter({}) );
 
         dispatch( logout() );
 

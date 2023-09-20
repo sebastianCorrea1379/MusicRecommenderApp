@@ -9,16 +9,26 @@ const initialForm = {
   seedText: "",
 }
 
+const formValidations = {
+  seedText: [(value) => value.length >= 10, 'La semilla debe tener más de 10 letras'],
+}
+
 export const JournalRecommenderPage = () => {
 
-  const { seedText, onInputChange, onResetForm } = useForm(initialForm);
+  const [formSubmited, setFormSubmited] = useState(false);
 
-  const {actualLetter, isLoading} = useSelector(state => state.journal)
+  const { seedText, onInputChange, onResetForm, isFormValid, seedTextValid } = useForm(initialForm, formValidations);
+
+  const {actualLetter, originalLetter, isLoading} = useSelector(state => state.journal)
 
   const dispatch = useDispatch();
 
   const handleGenerateText = async (event) => {
       event.preventDefault();
+      setFormSubmited(true);
+
+      if( !isFormValid ) return
+
       dispatch(startGenerateNewLetter(seedText));
   };
 
@@ -40,9 +50,11 @@ export const JournalRecommenderPage = () => {
                 name='seedText'
                 value={seedText}
                 onChange={onInputChange}
+                error={ !!seedTextValid && formSubmited }
+                helperText={ seedTextValid }
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ mt: 2 }}>
               <Button disabled={isLoading} type='submit' variant='contained' fullWidth >
                 Crear letra
               </Button>
@@ -60,14 +72,23 @@ export const JournalRecommenderPage = () => {
                   container 
                   direction='row' 
                   justifyContent='center'
+                  sx={{ mt: 2 }}
                   >
                   
                   <CircularProgress color='warning' />
                   
                 </Grid>
               : <>
-                <h2>Generated Text</h2>
-                <Typography variant="body2" style={{ whiteSpace: 'pre-line' }}>{actualLetter?.letter}</Typography>
+                <Grid container spacing={8}>
+                  <Grid item xs={12} sm={6}>
+                    <h2>Texto Corregido</h2>
+                    <Typography variant="body2" style={{ whiteSpace: 'pre-line' }}>{actualLetter?.letter}</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <h2>Texto Generado</h2>
+                    <Typography variant="body2" style={{ whiteSpace: 'pre-line' }}>{originalLetter?.letter}</Typography>
+                  </Grid>
+                </Grid>
               </>
             }
         </div>

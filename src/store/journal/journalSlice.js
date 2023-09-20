@@ -21,6 +21,9 @@ export const journalSlice = createSlice({
         actualLetter: {
             id: "",
             letter: "",
+        },
+        originalLetter: {
+            letter: ""
         }
     },
     reducers: {
@@ -57,10 +60,16 @@ export const journalSlice = createSlice({
         setActualLetter: (state, {payload}) => {
             state.actualLetter = {...payload};
             state.isLoading = false;
-        }
+        },
+        setOriginalLetter: (state, {payload}) => {
+            state.originalLetter = {...payload};
+        },
+        isNotLoading: (state) => {
+            state.isLoading = false;
+        },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { setUid, setGenders, setSongs, setTags, setTotalUser, isSaving, isLoading, setAllLetters, setLetter, setActualLetter } = journalSlice.actions;
+export const { setUid, setGenders, setSongs, setTags, setTotalUser, isSaving, isLoading, setAllLetters, setLetter, setActualLetter, isNotLoading, setOriginalLetter } = journalSlice.actions;
