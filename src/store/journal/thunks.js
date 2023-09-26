@@ -1,5 +1,5 @@
 import { loadGenders } from "../../helpers/loadGenders";
-import { isLoading, isNotLoading, setActualLetter, setAllLetters, setGenders, setLetter, setOriginalLetter } from "./journalSlice";
+import { isLoading, isNotLoading, setActualLetter, setAllLetters, setFavorites, setGenders, setLetter, setOriginalLetter } from "./journalSlice";
 import { FirebaseDB } from "../../firebase/config";
 import { collection, setDoc, doc, getDocs } from 'firebase/firestore/lite';
 import { setSongs } from '../../store/journal/journalSlice';
@@ -7,6 +7,7 @@ import swal from 'sweetalert'
 import 'primeicons/primeicons.css';
 import axios from 'axios';
 import { loadLetters } from "../../helpers/loadLetters";
+import { loadFavorites } from "../../helpers/loadFavorites";
 
 export const startLoadingUserInfo = () => {
     return async( dispatch, getState ) => {
@@ -17,9 +18,11 @@ export const startLoadingUserInfo = () => {
 
         const genders = await loadGenders( uid );
         const letters = await loadLetters( uid );
+        const favorites = await loadFavorites(uid);
 
         dispatch( setGenders( genders ) );
         dispatch( setAllLetters( letters ) );
+        dispatch(setFavorites(favorites));
 
     }
 }

@@ -11,6 +11,10 @@ export const journalSlice = createSlice({
             id: '',
             list: []
         },
+        favorites: {
+            id: '',
+            list: []
+        },
         tags: {
             id: '',
             list: []
@@ -38,6 +42,9 @@ export const journalSlice = createSlice({
         },
         setSongs: (state, { payload } ) => {
             state.songs = payload;
+        },
+        setFavorites: (state, { payload } ) => {
+            state.favorites = payload;
         },
         setTags: (state, { payload } ) => {
             state.tags = payload;
@@ -72,4 +79,4 @@ export const journalSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { setUid, setGenders, setSongs, setTags, setTotalUser, isSaving, isLoading, setAllLetters, setLetter, setActualLetter, isNotLoading, setOriginalLetter } = journalSlice.actions;
+export const { setUid, setGenders, setSongs, setTags, setTotalUser, isSaving, isLoading, setAllLetters, setLetter, setActualLetter, isNotLoading, setOriginalLetter, setFavorites } = journalSlice.actions;

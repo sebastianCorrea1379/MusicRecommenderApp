@@ -10,7 +10,7 @@ const initialForm = {
 }
 
 const formValidations = {
-  seedText: [(value) => value.length >= 10, 'La semilla debe tener más de 10 letras'],
+  seedText: [(value) => value.length >= 10, 'La frase debe tener más de 10 letras'],
 }
 
 export const JournalRecommenderPage = () => {
@@ -43,7 +43,7 @@ export const JournalRecommenderPage = () => {
           <form onSubmit={handleGenerateText}>
             <Grid item xs={12} sx={{mt: 2}}>
               <TextField
-                label= "Semilla" 
+                label= "Frase de inspiración" 
                 type="text" 
                 placeholder='Te amo mas que a nadie'
                 fullWidth
@@ -56,14 +56,11 @@ export const JournalRecommenderPage = () => {
             </Grid>
             <Grid item xs={12} sx={{ mt: 2 }}>
               <Button disabled={isLoading} type='submit' variant='contained' fullWidth >
-                Crear letra
+                Generar texto
               </Button>
             </Grid>
 
           </form>
-
-        
-
 
         <div>
             {

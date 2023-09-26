@@ -132,7 +132,7 @@ export const HomeViews = () => {
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <h2 style={{ textAlign: 'center' }}>{cancion.name}</h2>
                                 <p>Artista: {cancion.artist.name}</p>
-                                <Link to={cancion.url}><Button label="Reproducir" type='button' style={{ backgroundColor: '#262254', color: '#ffffff', height: '40px', borderRadius: '3px', width: '100%', marginBottom: '10px'}}/></Link>
+                                <a target="_blank" href= {cancion.url} ><Button label="Reproducir" type='button' style={{ backgroundColor: '#262254', color: '#ffffff', height: '40px', borderRadius: '3px', width: '100%', marginBottom: '10px'}}/></a>
                             </div>
                         </Card>
                     ))
